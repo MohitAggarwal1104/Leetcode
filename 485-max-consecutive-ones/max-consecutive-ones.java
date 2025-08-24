@@ -7,9 +7,6 @@ class Solution {
                 count++;
             }
             else{
-                if(count>maxOne){
-                    maxOne=count;
-                }
                 count=0;
             }
             if(count>maxOne){
