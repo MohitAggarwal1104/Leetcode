@@ -1,28 +1,30 @@
+import java.util.*;
+
 class Solution {
     public int peopleAwareOfSecret(int n, int delay, int forget) {
-        int mod = 1_000_000_007;
-        long[] dp = new long[n + 1];
+        int MOD = 1_000_000_007;
+        int[] dp = new int[n + 1];
         dp[1] = 1;
-        long[] prefix = new long[n + 2];
-        prefix[1 + delay] = (prefix[1 + delay] + 1) % mod;
-        prefix[1 + forget] = (prefix[1 + forget] - 1 + mod) % mod;
 
-        long share = 0;
-        for (int i = 2; i <= n; i++) {
-            share = (share + prefix[i]) % mod;
-            dp[i] = share;
-            if (i + delay <= n) prefix[i + delay] = (prefix[i + delay] + dp[i]) % mod;
-            if (i + forget <= n) prefix[i + forget] = (prefix[i + forget] - dp[i] + mod) % mod;
+        long sum = 0;
+        for (int day = 2; day <= n; day++) {
+            if (day - delay >= 1) {
+                sum = (sum + dp[day - delay]) % MOD;
+            }
+            if (day - forget >= 1) {
+                sum = (sum - dp[day - forget] + MOD) % MOD;
+            }
+            dp[day] = (int) sum;
         }
 
         long ans = 0;
         for (int i = n - forget + 1; i <= n; i++) {
-            if (i >= 1) ans = (ans + dp[i]) % mod;
+            if (i >= 1) ans = (ans + dp[i]) % MOD;
         }
+
         return (int) ans;
     }
 }
-
 
 // class tuple{
 //     char personName;
