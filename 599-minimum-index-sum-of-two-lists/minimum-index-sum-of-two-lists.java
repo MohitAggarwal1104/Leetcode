@@ -1,6 +1,6 @@
 class Solution {
     public String[] findRestaurant(String[] list1, String[] list2) {
-        HashMap<String, Integer> map = new HashMap<>();
+        Map<String, Integer> map = new HashMap<>();
         for (int i = 0; i < list1.length; i++) {
             map.put(list1[i], i);
         }
