@@ -39,6 +39,7 @@ class Solution {
             }
             temp=temp.next;
         }
+        newhead2.next = null;
         if(ans2.next!=null)newhead1.next=ans2.next;
         return ans1.next;
     }
