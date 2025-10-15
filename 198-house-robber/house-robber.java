@@ -9,29 +9,36 @@ class Solution {
         return dp[index];
     }
     public int rob(int[] nums) {
-        int dp[]=new int[nums.length]; 
+
+        //USING RECURSION WITH DP(MEMOITION)
+
+        // int dp[]=new int[nums.length]; 
         // Arrays.fill(dp, -1);
         // return robHelper(nums.length-1,nums,dp);
-        dp[0]=nums[0];
-        int neg=0;
-        for(int i=1;i<nums.length;i++){
-            int take=nums[i];
-            if(i>1)take+=dp[i-2];
-            int notTake=0+dp[i-1];
-            dp[i]=Math.max(take,notTake);
-        }
-        return dp[nums.length-1];
 
+        //USING DP TABULATION
 
-        //
-        // if (nums == null || nums.length == 0) return 0;
-        // int prev = 0; 
-        // int curr = 0; 
-        // for (int n : nums) {
-        //     int next = Math.max(curr, prev + n);
-        //     prev = curr;
-        //     curr = next;
+        // int dp[]=new int[nums.length]; 
+        // dp[0]=nums[0];
+        // int neg=0;
+        // for(int i=1;i<nums.length;i++){
+        //     int take=nums[i];
+        //     if(i>1)take+=dp[i-2];
+        //     int notTake=0+dp[i-1];
+        //     dp[i]=Math.max(take,notTake);
         // }
-        // return curr;
+        // return dp[nums.length-1];
+
+
+        //USING DP TABULATION WITH SPACE OPTIMISATION
+        
+        int prev = 0; 
+        int curr = 0; 
+        for (int n : nums) {
+            int next = Math.max(curr, prev + n);
+            prev = curr;
+            curr = next;
+        }
+        return curr;
     }
 }
