@@ -9,7 +9,7 @@ class Solution {
             total += count;
             count++;
 
-            if (i % daysInWeek == 0) { // end of week
+            if (i % daysInWeek == 0) {
                 start++;
                 count = start;
             }
