@@ -27,21 +27,41 @@ class Solution {
         // }
         // return dp[text1.length()][text2.length()];
         
-        int dp[]=new int[text2.length()+1];
-        Arrays.fill(dp,-1);
-        for(int i=0;i<=text2.length();i++){
-            dp[i]=0;
+        // int dp[]=new int[text2.length()+1];
+        // Arrays.fill(dp,-1);
+        // for(int i=0;i<=text2.length();i++){
+        //     dp[i]=0;
+        // }
+
+        // for(int i=1;i<=text1.length();i++){
+        //     int prev = 0; 
+        //     for(int j=1;j<=text2.length();j++){
+        //          int temp = dp[j];
+        //         if(text1.charAt(i-1)==(text2.charAt(j-1))) dp[j] = 1 + prev;
+        //         else dp[j]=Math.max(dp[j],dp[j-1]);
+        //         prev = temp;
+        //     }
+        // }
+        // return dp[text2.length()];
+        int m = text1.length();
+        int n = text2.length();
+
+        int prev[] = new int[n+1];
+        int curr[] = new int[n+1];
+
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                if(text1.charAt(i-1)==text2.charAt(j-1)){
+                    curr[j] = 1 + prev[j-1];
+                }else{
+                    curr[j] = Math.max(prev[j], curr[j-1]);
+                }
+            }
+
+            // copy curr to prev
+            prev = curr.clone();
         }
 
-        for(int i=1;i<=text1.length();i++){
-            int prev = 0; 
-            for(int j=1;j<=text2.length();j++){
-                 int temp = dp[j];
-                if(text1.charAt(i-1)==(text2.charAt(j-1))) dp[j] = 1 + prev;
-                else dp[j]=Math.max(dp[j],dp[j-1]);
-                prev = temp;
-            }
-        }
-        return dp[text2.length()];
+        return prev[n];
     }
 }
