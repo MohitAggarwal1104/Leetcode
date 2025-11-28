@@ -24,7 +24,7 @@ class Solution {
                 i--;
                 j--;
             }
-            else if(dp[i-1][j] >= dp[i][j-1]){
+            else if(dp[i-1][j] > dp[i][j-1]){
                 sb.append(str1.charAt(i-1));
                 i--;
             }
