@@ -20,29 +20,56 @@ class Solution {
         // for(int i=0;i<n;i++)Arrays.fill(dp[i],-1);
         // return count(n-1,m-1,word1,word2,dp);
 
-        // Tabulation
-        int n=word1.length();
-        int m=word2.length();
-        int dp[]=new int[m+1];
-        int curr[]=new int[m+1];
-       // for(int i=0;i<=n;i++)Arrays.fill(dp[i],-1);
-        for(int i=0;i<=m;i++)dp[i]=i;
-        for(int i=1;i<=n;i++){
-            curr[0]=i;
-            for(int j=1;j<=m;j++){
-            if(word1.charAt(i-1)==word2.charAt(j-1)){
-            curr[j]= dp[j-1];
-        }
-        else{
-            int insert=1+curr[j-1];
-            int remove=1+dp[j];
-            int replace=1+dp[j-1];
-            curr[j]= Math.min(insert,Math.min(remove,replace));
-        }
-            }
-            dp= curr.clone();
-        }
-        return dp[m];
+    //     // Tabulation
+    //     int n=word1.length();
+    //     int m=word2.length();
+    //     int dp[]=new int[m+1];
+    //     int curr[]=new int[m+1];
+    //    // for(int i=0;i<=n;i++)Arrays.fill(dp[i],-1);
+    //     for(int i=0;i<=m;i++)dp[i]=i;
+    //     for(int i=1;i<=n;i++){
+    //         curr[0]=i;
+    //         for(int j=1;j<=m;j++){
+    //         if(word1.charAt(i-1)==word2.charAt(j-1)){
+    //         curr[j]= dp[j-1];
+    //     }
+    //     else{
+    //         int insert=1+curr[j-1];
+    //         int remove=1+dp[j];
+    //         int replace=1+dp[j-1];
+    //         curr[j]= Math.min(insert,Math.min(remove,replace));
+    //     }
+    //         }
+    //         dp= curr.clone();
+    //     }
+    //     return dp[m];
+     int n = word1.length();
+    int m = word2.length();
 
+    int dp[] = new int[m+1];
+
+    for(int j = 0; j <= m; j++) dp[j] = j;
+
+    for(int i = 1; i <= n; i++){
+        int prev = dp[0];  // diagonal dp[j-1] from previous row
+        dp[0] = i;
+
+        for(int j = 1; j <= m; j++){
+            int temp = dp[j]; // store old dp[j] (for next iteration as diagonal)
+
+            if(word1.charAt(i-1) == word2.charAt(j-1)){
+                dp[j] = prev;
+            } else {
+                int insert  = dp[j-1];
+                int remove  = dp[j];
+                int replace = prev;
+                dp[j] = 1 + Math.min(insert, Math.min(remove, replace));
+            }
+
+            prev = temp;
+        }
+    }
+
+    return dp[m];
     }
 }
