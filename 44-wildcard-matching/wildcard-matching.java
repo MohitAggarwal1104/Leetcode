@@ -20,10 +20,36 @@ class Solution {
         return false;
     }
     public boolean isMatch(String s, String p) {
-        int n=s.length();
-        int m=p.length();
-        int dp[][]=new int[m][n];
-        for(int i=0;i<m;i++)Arrays.fill(dp[i],-1);
-        return match(m-1,n-1,p,s,dp);
+        // int n=s.length();
+        // int m=p.length();
+        // int dp[][]=new int[m][n];
+        // for(int i=0;i<m;i++)Arrays.fill(dp[i],-1);
+        // return match(m-1,n-1,p,s,dp);
+        int n = s.length();
+        int m = p.length();
+
+        boolean dp[][] = new boolean[m+1][n+1];
+        dp[0][0] = true;
+        for(int i = 1; i <= m; i++){
+            if(p.charAt(i-1) == '*')
+                dp[i][0] = dp[i-1][0];
+        }
+        for(int i = 1; i <= m; i++){
+            for(int j = 1; j <= n; j++){
+
+                if(p.charAt(i-1) == s.charAt(j-1) || p.charAt(i-1) == '?'){
+                    dp[i][j] = dp[i-1][j-1];
+                }
+                else if(p.charAt(i-1) == '*'){
+                    dp[i][j] = dp[i-1][j]     // * matches empty
+                             || dp[i][j-1]; // * matches 1 or more
+                }
+                else{
+                    dp[i][j] = false;
+                }
+            }
+        }
+
+        return dp[m][n];
     }
 }
