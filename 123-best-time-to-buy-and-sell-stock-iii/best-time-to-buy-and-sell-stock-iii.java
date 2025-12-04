@@ -13,12 +13,46 @@ class Solution {
         return dp[i][buy][cap]=profit;
     }
     public int maxProfit(int[] prices) {
+        if (prices.length == 0) return 0;
+        // int n=prices.length;
+        // int dp[][][]=new int[n][2][3];
+        // for(int i=0;i<n;i++){
+        //     for(int j=0;j<2;j++)Arrays.fill(dp[i][j],-1);
+        // }
+
+        // return maxmoney(0,1,2,prices,dp);
+
+
+        //tabulation code
+
         int n=prices.length;
-        int dp[][][]=new int[n][2][3];
-        for(int i=0;i<n;i++){
-            for(int j=0;j<2;j++)Arrays.fill(dp[i][j],-1);
+        int dp[][][]=new int[n+1][2][3];
+        // for(int i=0;i<=n;i++){
+        //     for(int j=0;j<2;j++)Arrays.fill(dp[i][j],-1);
+        // }
+        // // cap==0 wala case
+        // for(int i=0;i<=n;i++)for(int j=0;j<2;j++)dp[i][j][0]=0;
+
+        // //ind==n wala case
+        // for(int i=0;i<2;i++)for(int j=0;j<3;j++)dp[n][i][j]=0;
+
+
+        for(int i=n-1;i>=0;i--){
+            for(int buy=0;buy<2;buy++){
+                for(int k=1;k<3;k++){
+                    int profit=0;
+                    if(buy==1){
+                        profit=Math.max((-prices[i]+dp[i+1][0][k]),dp[i+1][1][k]);
+                    }
+                    else{
+                        profit=Math.max((prices[i]+dp[i+1][1][k-1]),dp[i+1][0][k]);
+                    }
+                    dp[i][buy][k]=profit;
+                }
+            }
         }
 
-        return maxmoney(0,1,2,prices,dp);
+        return dp[0][1][2];
+
     }
 }
