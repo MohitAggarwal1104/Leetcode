@@ -22,25 +22,50 @@ class Solution {
         // return maxmoney(0,1,k,prices,dp);
 
 
-         //tabulation code
+        //  //tabulation code
+
+        // int n=prices.length;
+        // int dp[][][]=new int[n+1][2][cap+1];
+        // for(int i=n-1;i>=0;i--){
+        //     for(int buy=0;buy<2;buy++){
+        //         for(int k=1;k<=cap;k++){
+        //             int profit=0;
+        //             if(buy==1){
+        //                 profit=Math.max((-prices[i]+dp[i+1][0][k]),dp[i+1][1][k]);
+        //             }
+        //             else{
+        //                 profit=Math.max((prices[i]+dp[i+1][1][k-1]),dp[i+1][0][k]);
+        //             }
+        //             dp[i][buy][k]=profit;
+        //         }
+        //     }
+        // }
+
+        // return dp[0][1][cap];
+
+
+
+        //tabulation code
 
         int n=prices.length;
-        int dp[][][]=new int[n+1][2][cap+1];
+        int after[][]=new int[2][cap+1];
+        int curr[][]=new int[2][cap+1];
         for(int i=n-1;i>=0;i--){
             for(int buy=0;buy<2;buy++){
                 for(int k=1;k<=cap;k++){
                     int profit=0;
                     if(buy==1){
-                        profit=Math.max((-prices[i]+dp[i+1][0][k]),dp[i+1][1][k]);
+                        profit=Math.max((-prices[i]+after[0][k]),after[1][k]);
                     }
                     else{
-                        profit=Math.max((prices[i]+dp[i+1][1][k-1]),dp[i+1][0][k]);
+                        profit=Math.max((prices[i]+after[1][k-1]),after[0][k]);
                     }
-                    dp[i][buy][k]=profit;
+                    curr[buy][k]=profit;
                 }
             }
+            after=curr;
         }
 
-        return dp[0][1][cap];
+        return after[1][cap];
     }
 }
