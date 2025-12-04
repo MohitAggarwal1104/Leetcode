@@ -54,28 +54,47 @@ class Solution {
 
         // return dp[0][1][2];
 
-        //tabulation code
+        // //tabulation code
 
-        int n=prices.length;
-        int after[][]=new int[2][3];
-        int curr[][]=new int[2][3];
-        for(int i=n-1;i>=0;i--){
-            for(int buy=0;buy<2;buy++){
-                for(int k=1;k<3;k++){
-                    int profit=0;
-                    if(buy==1){
-                        profit=Math.max((-prices[i]+after[0][k]),after[1][k]);
+        // int n=prices.length;
+        // int after[][]=new int[2][3];
+        // int curr[][]=new int[2][3];
+        // for(int i=n-1;i>=0;i--){
+        //     for(int buy=0;buy<2;buy++){
+        //         for(int k=1;k<3;k++){
+        //             int profit=0;
+        //             if(buy==1){
+        //                 profit=Math.max((-prices[i]+after[0][k]),after[1][k]);
+        //             }
+        //             else{
+        //                 profit=Math.max((prices[i]+after[1][k-1]),after[0][k]);
+        //             }
+        //             curr[buy][k]=profit;
+        //         }
+        //     }
+        //     after=curr;
+        // }
+
+        // return after[1][2];
+
+        int cap=2;
+         int n = prices.length;
+        int dp[][] = new int[2][cap+1];
+
+        for (int i = n - 1; i >= 0; i--) {
+            for (int buy = 1; buy >= 0; buy--) {
+                for (int k = cap; k >= 1; k--) {
+
+                    if (buy == 1) {
+                        dp[buy][k] = Math.max(-prices[i] + dp[0][k],dp[1][k]);
+                    } else {
+                        dp[buy][k] = Math.max( prices[i] + dp[1][k - 1],dp[0][k]);
                     }
-                    else{
-                        profit=Math.max((prices[i]+after[1][k-1]),after[0][k]);
-                    }
-                    curr[buy][k]=profit;
                 }
             }
-            after=curr;
         }
 
-        return after[1][2];
+        return dp[1][cap];
 
     }
 }
