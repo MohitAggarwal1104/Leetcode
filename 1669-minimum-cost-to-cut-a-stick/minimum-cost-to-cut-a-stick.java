@@ -16,9 +16,8 @@ class Solution {
         cuts2[0]=0;
         cuts2[cuts.length+1]=n;
         for(int i=0;i<cuts.length;i++)cuts2[i+1]=cuts[i];
-        int dp[][]=new int[cuts.length+2][cuts.length+2];
-        for(int i=0;i<cuts.length+2;i++)Arrays.fill(dp[i],-1);
+        int dp[][]=new int[cuts.length+1][cuts.length+1];
+        for(int i=0;i<cuts.length+1;i++)Arrays.fill(dp[i],-1);
         return f(1,cuts.length,cuts2,dp);
-
     }
 }
