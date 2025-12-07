@@ -21,9 +21,25 @@ class Solution {
         return dp[i]=minCost;
     }
     public int minCut(String s) {
+        // int n=s.length();
+        // int dp[]=new int[n];
+        // Arrays.fill(dp,-1);
+        // return f(0,n,s,dp)-1;
+
         int n=s.length();
-        int dp[]=new int[n];
-        Arrays.fill(dp,-1);
-        return f(0,n,s,dp)-1;
+        int dp[]=new int[n+1];
+        dp[n]=0;
+
+        for(int i=n-1;i>=0;i--){
+            int minCost=(int)1e9;
+            for(int j=i;j<n;j++){
+                if(isPalindrome(s,i,j)){
+                    int cost=1+dp[j+1];
+                    minCost=Math.min(minCost,cost);
+                }
+            }
+            dp[i]=minCost;
+        }
+        return dp[0]-1;
     }
 }
