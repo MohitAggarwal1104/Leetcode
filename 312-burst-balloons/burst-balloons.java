@@ -11,13 +11,30 @@ class Solution {
         return dp[i][j]=cost;
     }
     public int maxCoins(int[] nums) {
+        // int n=nums.length;
+        // int nums2[]=new int[n+2];
+        // int dp[][]=new int[n+2][n+2];
+        // nums2[0]=1;nums2[n+1]=1;
+        // for(int i=0;i<n;i++)nums2[i+1]=nums[i];
+        // for(int i=0;i<n+2;i++)Arrays.fill(dp[i],-1);
+        // return f(1,n,nums2,dp);
         int n=nums.length;
         int nums2[]=new int[n+2];
         int dp[][]=new int[n+2][n+2];
         nums2[0]=1;nums2[n+1]=1;
         for(int i=0;i<n;i++)nums2[i+1]=nums[i];
-        for(int i=0;i<n+2;i++)Arrays.fill(dp[i],-1);
 
-        return f(1,n,nums2,dp);
+        for(int i=n;i>=1;i--){
+            for(int j=0;j<=n;j++){
+                int cost=Integer.MIN_VALUE;
+                if(i>j)continue;
+                for(int k=i;k<=j;k++){
+                    int costing=nums2[i-1]*nums2[k]*nums2[j+1]+dp[i][k-1]+dp[k+1][j];
+                    cost=Math.max(cost,costing);
+                }
+                dp[i][j]=cost;
+            }
+        }
+        return dp[1][n];
     }
 }
