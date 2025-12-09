@@ -28,19 +28,34 @@ class Solution {
         // }
         // return dp[0][0];
 
+        // int n=nums.length;
+        // // int dp[]=new int[n+1];
+        // int curr[]=new int[n+1];
+        // for(int i=n-1;i>=0;i--){
+        //     for(int prev=i-1;prev>=-1;prev--){
+        //         int len=curr[prev+1];// prev+1 due to co ordinates shieft
+        //         if(prev==-1 || nums[i]>nums[prev]){
+        //             len=Math.max(len,1+curr[i+1]);
+        //         }
+        //         curr[prev+1]=len;
+        //     }
+        // //    dp=curr;
+        // }
+        // return curr[0];
+
+        // simple tabulation form
+
         int n=nums.length;
-        // int dp[]=new int[n+1];
-        int curr[]=new int[n+1];
-        for(int i=n-1;i>=0;i--){
-            for(int prev=i-1;prev>=-1;prev--){
-                int len=curr[prev+1];// prev+1 due to co ordinates shieft
-                if(prev==-1 || nums[i]>nums[prev]){
-                    len=Math.max(len,1+curr[i+1]);
+        int dp[]=new int[n];
+        int max=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<=i-1;j++){
+                if(nums[j]<nums[i]){
+                    dp[i]=Math.max(1+dp[j],dp[i]);
                 }
-                curr[prev+1]=len;
             }
-        //    dp=curr;
+            max=Math.max(max,dp[i]);
         }
-        return curr[0];
-    }
+        return max+1;
+        }
 }
