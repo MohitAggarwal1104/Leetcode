@@ -47,6 +47,7 @@ class Solution {
 
         int n=nums.length;
         int dp[]=new int[n];
+        Arrays.fill(dp,1);
         int max=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<=i-1;j++){
@@ -56,6 +57,6 @@ class Solution {
             }
             max=Math.max(max,dp[i]);
         }
-        return max+1;
+        return max;
         }
 }
