@@ -29,18 +29,18 @@ class Solution {
         // return dp[0][0];
 
         int n=nums.length;
-        int dp[]=new int[n+1];
+        // int dp[]=new int[n+1];
         int curr[]=new int[n+1];
         for(int i=n-1;i>=0;i--){
             for(int prev=i-1;prev>=-1;prev--){
-                int len=dp[prev+1];// prev+1 due to co ordinates shieft
+                int len=curr[prev+1];// prev+1 due to co ordinates shieft
                 if(prev==-1 || nums[i]>nums[prev]){
-                    len=Math.max(len,1+dp[i+1]);
+                    len=Math.max(len,1+curr[i+1]);
                 }
                 curr[prev+1]=len;
             }
-           dp=curr;
+        //    dp=curr;
         }
-        return dp[0];
+        return curr[0];
     }
 }
