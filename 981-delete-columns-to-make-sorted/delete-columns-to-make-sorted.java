@@ -1,19 +1,34 @@
+// class Solution {
+//     public int minDeletionSize(String[] strs) {
+//         int count=0;
+
+//         for(int i=0;i<strs[0].length();i++){
+//             int position=0;
+//             for(int j=0;j<strs.length;j++){
+//                 if(j!=0 && position>(strs[j].charAt(i)-'0')){
+//                     count++;
+//                     break;
+//                 }
+//                 else{
+//                     position=strs[j].charAt(i)-'0';
+//                 }
+//             }
+//         }
+//         return count;
+//     }
+// }
 class Solution {
     public int minDeletionSize(String[] strs) {
-        int count=0;
+        int res = 0;
+        for (int j = 0; j < strs[0].length(); j++)
+            res += isUnsorted(strs, j);
+        return res;
+    }
 
-        for(int i=0;i<strs[0].length();i++){
-            int position=0;
-            for(int j=0;j<strs.length;j++){
-                if(j!=0 && position>(strs[j].charAt(i)-'0')){
-                    count++;
-                    break;
-                }
-                else{
-                    position=strs[j].charAt(i)-'0';
-                }
-            }
-        }
-        return count;
+    private int isUnsorted(String[] strs, int j) {
+        for (int i = 1; i < strs.length; i++)
+            if (strs[i].charAt(j) < strs[i - 1].charAt(j))
+                return 1;
+        return 0;
     }
 }
